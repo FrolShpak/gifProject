@@ -1,0 +1,8 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend for gif generation",
+  "main": "index.js",
+  "author": "Frol Shpak",
+  "license": "MIT"
+}
