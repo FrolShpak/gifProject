@@ -6,6 +6,7 @@
   "author": "Frol Shpak",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint",
     "start:dev": "nodemon --exec babel-node app.js --nodeEnv 'dev'",
     "build": "babel app.js --out-file app-compiled.js"
   },
@@ -18,9 +19,50 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.7"
   },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0"
+  },
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2020": true
+    },
+    "extends": [
+      "google",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 11,
+      "sourceType": "module"
+    },
+    "rules": {
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "indent": [
+        "error"
+      ],
+      "new-cap": "warn",
+      "no-unused-vars": "warn",
+      "max-len": "warn"
+    }
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500"
   }
 }
