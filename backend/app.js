@@ -1,13 +1,20 @@
 import express from 'express';
-import config from './config/config';
+import loaders from './loaders';
+import config from './config';
 
-const app = express();
+async function startServer() {
+  console.log('config:', config);
 
-console.log('config:', config);
-const port = config.app.port;
+  const app = express();
+  await loaders({ expressApp: app });
 
-app.get('/ping', (req, res) => res.send('pong'));
+  app.listen(config.app.port, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log('Running on port:', config.app.port);
+  });
+}
 
-app.listen(port, () => {
-  console.log('Running on port:', port);
-});
+startServer();

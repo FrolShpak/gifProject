@@ -17,6 +17,17 @@ const config = convict({
       env: 'PORT',
     },
   },
+  db: {
+    url: {
+      format: String,
+      default: 'mongodb://localhost/gifProject',
+      env: 'DB_URl',
+    },
+  },
+  secret: {
+    format: String,
+    default: process.env.SECRET,
+  },
 });
 
 const env = config.get('env');
