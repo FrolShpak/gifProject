@@ -1,1 +1,1 @@
-This is my project for creating a web app to generate gifs.
+This is my project for a web app for generating gifs.

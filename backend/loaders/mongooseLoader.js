@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 import config from '../config';
 export default async () => {
-  const connection = await mongoose.connect(config.db.url, {
+  await mongoose.connect(config.db.url, {
     useNewUrlParser: true,
-    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
-  return connection.connection.db;
+  const db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'Failed to connect to MongoDB:'));
+  db.once('open', () => console.log('Successfully connected to MongoDB.'));
 };
