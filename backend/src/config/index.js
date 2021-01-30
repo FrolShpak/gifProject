@@ -13,25 +13,31 @@ const config = convict({
   app: {
     port: {
       format: 'port',
-      default: 3000,
+      default: process.env.PORT,
       env: 'PORT',
     },
   },
   db: {
-    url: {
+    projectId: {
       format: String,
-      default: 'mongodb://localhost/gifProject',
-      env: 'DB_URl',
+      default: process.env.PROJECT_ID,
+      env: 'PROJECT_ID',
+    },
+    keyFilename: {
+      format: String,
+      default: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+      env: 'GOOGLE_APPLICATION_CREDENTIALS',
     },
   },
   secret: {
     format: String,
     default: process.env.SECRET,
+    env: 'SECRET',
   },
 });
 
 const env = config.get('env');
-config.loadFile(`./config/${env}.json`);
+config.loadFile(`./configs/${env}.json`);
 config.validate({ allowed: 'strict' });
 
 export default config.getProperties();
