@@ -9,6 +9,7 @@ class CloudStorageService {
   saveVideo(file) {
     console.debug('calling CloudStorageService.saveVideo');
     return new Promise((resolve, reject) => {
+      //change file name
       const blob = bucket.file(file.originalname);
       const blobStream = blob.createWriteStream({
         resumable: false,

@@ -8,12 +8,13 @@ const db = new Firestore({
 });
 
 class FirestoreService {
-  saveVideoDocument(videoData) {
+  async saveVideoDocument(videoData) {
     console.debug('calling FirestoreService.saveVideoDocument');
-    return db
+    const result = await db
       .collection(videoColelction)
       .doc(videoData.uuid)
       .set(JSON.parse(JSON.stringify(videoData)));
+    return result;
   }
 }
 

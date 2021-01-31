@@ -10,10 +10,10 @@ async function startServer() {
 
   app.listen(config.app.port, (err) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return;
     }
-    console.log('Running on port:', config.app.port);
+    console.debug('Running on port:', config.app.port);
   });
 }
 
