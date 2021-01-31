@@ -17,7 +17,7 @@ const config = convict({
       env: 'PORT',
     },
   },
-  db: {
+  firestore: {
     projectId: {
       format: String,
       default: process.env.PROJECT_ID,
@@ -27,6 +27,13 @@ const config = convict({
       format: String,
       default: process.env.GOOGLE_APPLICATION_CREDENTIALS,
       env: 'GOOGLE_APPLICATION_CREDENTIALS',
+    },
+  },
+  cloudStorage: {
+    bucket: {
+      format: String,
+      default: process.env.GCLOUD_STORAGE_BUCKET,
+      env: 'GCLOUD_STORAGE_BUCKET',
     },
   },
   secret: {
