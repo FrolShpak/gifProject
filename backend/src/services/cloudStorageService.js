@@ -9,7 +9,7 @@ class CloudStorageService {
   saveVideo(file) {
     console.debug('calling CloudStorageService.saveVideo');
     return new Promise((resolve, reject) => {
-      //change file name
+      //change file name and consider to resize video for a smaller size
       const blob = bucket.file(file.originalname);
       const blobStream = blob.createWriteStream({
         resumable: false,

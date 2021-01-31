@@ -5,10 +5,10 @@ import multer from 'multer';
 const upload = multer({
   storage: multer.memoryStorage(),
   fileFilter: (req, file, cb) => {
-    const videoFilesMIME = new RegExp('/^video+/[-w.]+$/');
+    const videoFilesMIME = new RegExp(`^video+/.+$`);
     const mimetype = videoFilesMIME.test(file.mimetype);
-
-    if (mimetype && extname) {
+    console.debug(mimetype, file.mimetype);
+    if (mimetype) {
       return cb(null, true);
     } else {
       const error = new Error('Only video files allowed');
