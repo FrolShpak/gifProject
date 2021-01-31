@@ -6,20 +6,23 @@ const storage = new Storage();
 const bucket = storage.bucket(config.cloudStorage.bucket);
 
 class CloudStorageService {
-  async saveVideo(file) {
-    console.log('calling CloudStorageService.saveVideo');
-    const blob = bucket.file(file.originalname);
-    const blobStream = blob.createWriteStream({
-      resumable: false,
+  saveVideo(file) {
+    console.debug('calling CloudStorageService.saveVideo');
+    return new Promise((resolve, reject) => {
+      const blob = bucket.file(file.originalname);
+      const blobStream = blob.createWriteStream({
+        resumable: false,
+        qzip: true,
+      });
+
+      blobStream
+        .on('error', (err) => reject(err))
+        .on('finish', () => {
+          console.debug('finished writting');
+          resolve(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+        });
+      blobStream.end(file.buffer);
     });
-
-    // blobStream.on('error', (err) => {
-    //   next(err);
-    // });
-
-    blobStream.end(file.buffer);
-    await finished(blobStream);
-    return `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
   }
 }
 

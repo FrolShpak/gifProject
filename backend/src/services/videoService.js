@@ -4,10 +4,14 @@ import CloudStorageService from './cloudStorageService';
 import VideoData from '../models/videoData';
 
 class VideoService {
-  async uploadVideo(file) {
-    const path = await CloudStorageService.saveVideo(file);
-    const videoData = new VideoData(v4(), path);
-    await FirestoreService.saveVideoDocument(videoData);
+  uploadVideo(file) {
+    return CloudStorageService.saveVideo(file)
+      .then((path) => {
+        console.debug(path);
+        const videoData = new VideoData(v4(), path);
+        return FirestoreService.saveVideoDocument(videoData);
+      })
+      .catch((err) => console.error(err));
   }
 }
 export default new VideoService();

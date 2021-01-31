@@ -4,6 +4,7 @@ import loaders from './loaders';
 import config from './config';
 
 async function startServer() {
+  console.debug(config);
   const app = express();
   await loaders({ expressApp: app });
 
