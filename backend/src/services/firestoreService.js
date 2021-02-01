@@ -20,7 +20,7 @@ class FirestoreService {
     const videoDocRef = db.collection(videoCollection).doc(uuid);
     const videoDoc = await videoDocRef.get();
     if (!videoDoc.exists) {
-      throw new Error('No video find');
+      throw new Error('No video found');
     } else {
       return videoDoc.data();
     }
