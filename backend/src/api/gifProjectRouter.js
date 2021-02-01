@@ -34,5 +34,17 @@ gifProjectRouter.route('/video').post((req, res, next) => {
     }
   });
 });
+gifProjectRouter
+  .route('/video/:uuid/extractGif')
+  .post(async (req, res, next) => {
+    console.debug('POST on /extractGif');
+    try {
+      const gif = await VideoService.extractGif(req.params.uuid, req.body);
+      res.status(200);
+      res.send(gif);
+    } catch (err) {
+      next(err);
+    }
+  });
 
 export default gifProjectRouter;

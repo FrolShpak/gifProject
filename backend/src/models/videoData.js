@@ -1,6 +1,6 @@
 export default class VideoData {
-  constructor(uuid, filePath) {
+  constructor(uuid, fileName) {
     this.uuid = uuid;
-    this.filePath = filePath;
+    this.fileName = fileName;
   }
 }

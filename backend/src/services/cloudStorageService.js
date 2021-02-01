@@ -1,16 +1,16 @@
 import { Storage } from '@google-cloud/storage';
-import { finished } from 'stream/promises';
 import config from '../config';
 
 const storage = new Storage();
 const bucket = storage.bucket(config.cloudStorage.bucket);
 
 class CloudStorageService {
-  saveVideo(file) {
+  saveVideo(file, videoData) {
     console.debug('calling CloudStorageService.saveVideo');
     return new Promise((resolve, reject) => {
       //change file name and consider to resize video for a smaller size
-      const blob = bucket.file(file.originalname);
+      console.debug(videoData);
+      const blob = bucket.file(videoData.fileName);
       const blobStream = blob.createWriteStream({
         resumable: false,
         qzip: true,
@@ -24,6 +24,10 @@ class CloudStorageService {
         });
       blobStream.end(file.buffer);
     });
+  }
+  getVideo(videoDoc) {
+    const blob = bucket.file(videoDoc.fileName);
+    return blob.get();
   }
 }
 
