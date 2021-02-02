@@ -1,5 +1,6 @@
 import { Storage } from '@google-cloud/storage';
 import config from '../config';
+import fs from 'fs';
 
 const storage = new Storage();
 const bucket = storage.bucket(config.cloudStorage.bucket);
@@ -25,9 +26,12 @@ class CloudStorageService {
       blobStream.end(file.buffer);
     });
   }
-  getVideo(videoDoc) {
-    const blob = bucket.file(videoDoc.fileName);
-    return blob.get();
+  async getVideo(videoDoc) {
+    console.debug('calling CloudStorageService.getVideo');
+    await bucket
+      .file(videoDoc.fileName)
+      .download({ destination: `./${videoDoc.fileName}` });
+    return fs.createReadStream(`./${videoDoc.fileName}`);
   }
 }
 

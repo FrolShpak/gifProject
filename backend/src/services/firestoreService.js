@@ -17,6 +17,7 @@ class FirestoreService {
     return result;
   }
   async getVideoDocument(uuid) {
+    console.debug('calling FirestoreService.getVideoDocument');
     const videoDocRef = db.collection(videoCollection).doc(uuid);
     const videoDoc = await videoDocRef.get();
     if (!videoDoc.exists) {

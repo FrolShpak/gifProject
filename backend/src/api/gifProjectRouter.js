@@ -26,9 +26,9 @@ gifProjectRouter.route('/video').post((req, res, next) => {
       if (err) {
         throw err;
       }
-      const result = await VideoService.uploadVideo(req.file);
+      const videoUuid = await VideoService.uploadVideo(req.file);
       res.status(201);
-      res.send(result);
+      res.send({ videoUuid });
     } catch (err) {
       next(err);
     }
@@ -41,7 +41,7 @@ gifProjectRouter
     try {
       const gif = await VideoService.extractGif(req.params.uuid, req.body);
       res.status(200);
-      res.send(gif);
+      res.download('./test.gif');
     } catch (err) {
       next(err);
     }
