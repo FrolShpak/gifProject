@@ -18,18 +18,19 @@ class VideoService {
     const { startTime, endTime, subtitles } = data;
     const videoDoc = await FirestoreService.getVideoDocument(uuid);
     const videoStream = await CloudStorageService.getVideo(videoDoc);
-    const gifStream = fs.createWriteStream('./test.gif');
+    const gifStream = fs.createWriteStream(`./tempFiles/${uuid}.gif`);
+    const duration = endTime - startTime;
 
     console.debug('making gif');
-    ffmpeg()
+    await ffmpeg()
       .input(videoStream)
-      .seekInput(5)
-      .duration(10)
+      .seekInput(startTime)
+      .duration(duration)
       .noAudio()
       .format('gif')
       .pipe(gifStream, { end: true });
 
-    return './test.gif';
+    return gifStream.path;
   }
 }
 export default new VideoService();

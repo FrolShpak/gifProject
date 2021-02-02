@@ -92,3 +92,5 @@ backend/build/
 backend/secret.json
 
 .DS_Store
+
+backend/tempFiles/

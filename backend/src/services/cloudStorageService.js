@@ -30,8 +30,8 @@ class CloudStorageService {
     console.debug('calling CloudStorageService.getVideo');
     await bucket
       .file(videoDoc.fileName)
-      .download({ destination: `./${videoDoc.fileName}` });
-    return fs.createReadStream(`./${videoDoc.fileName}`);
+      .download({ destination: `./tempFiles/${videoDoc.fileName}` });
+    return fs.createReadStream(`./tempFiles/${videoDoc.fileName}`);
   }
 }
 
