@@ -3,7 +3,14 @@ import VideoService from '../services/videoService';
 import multer from 'multer';
 
 const upload = multer({
-  storage: multer.memoryStorage(),
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './tempFiles');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now());
+    },
+  }),
   fileFilter: (req, file, cb) => {
     const videoFilesMIME = new RegExp(`^video+/.+$`);
     const mimetype = videoFilesMIME.test(file.mimetype);
@@ -19,16 +26,16 @@ const upload = multer({
 }).single('video');
 const gifProjectRouter = express.Router();
 
-gifProjectRouter.route('/video').post((req, res, next) => {
+gifProjectRouter.route('/video').post(async (req, res, next) => {
   console.debug('POST on /video');
   upload(req, res, async (err) => {
     try {
       if (err) {
         throw err;
       }
-      const videoUuid = await VideoService.uploadVideo(req.file);
+      const videoDoc = await VideoService.uploadVideo(req.file);
       res.status(201);
-      res.send({ videoUuid });
+      res.send(videoDoc);
     } catch (err) {
       next(err);
     }

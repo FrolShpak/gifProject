@@ -2,6 +2,7 @@ import express from 'express';
 import gifProjectRouter from '../api/gifProjectRouter';
 
 function errorHandler(err, req, res, next) {
+  console.error(err);
   res.status(err.status || 500).send({
     error: {
       status: err.status || 500,
