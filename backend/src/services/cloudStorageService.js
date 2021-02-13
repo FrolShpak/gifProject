@@ -19,7 +19,7 @@ class CloudStorageService {
         .on('error', (err) => reject(err))
         .on('finish', () => {
           console.debug('finished writting');
-          resolve();
+          fs.unlink(`./${file.path}`, () => resolve());
         });
       FfmpegService.downsizeVideo(`./${file.path}`, blobStream);
     });
