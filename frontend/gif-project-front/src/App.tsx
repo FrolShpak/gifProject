@@ -1,12 +1,9 @@
 import React from 'react';
+import InputFile from './components/atoms/inputFile';
 import './styles/App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hi</h1>
-    </div>
-  );
-}
+const App = () => {
+  return <InputFile />;
+};
 
 export default App;
