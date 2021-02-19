@@ -26,8 +26,8 @@ const upload = multer({
 }).single('video');
 const gifProjectRouter = express.Router();
 
-gifProjectRouter.route('/video').post(async (req, res, next) => {
-  console.debug('POST on /video');
+gifProjectRouter.route('/video').put(async (req, res, next) => {
+  console.debug('PUT on /video');
   upload(req, res, async (err) => {
     try {
       if (err) {

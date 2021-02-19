@@ -18,7 +18,7 @@ class CloudStorageService {
       blobStream
         .on('error', (err) => reject(err))
         .on('finish', () => {
-          console.debug('finished writting');
+          console.debug('finished saving video to cloud');
           fs.unlink(`./${file.path}`, () => resolve());
         });
       FfmpegService.downsizeVideo(`./${file.path}`, blobStream);

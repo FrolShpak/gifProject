@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import gifProjectRouter from '../api/gifProjectRouter';
 
 function errorHandler(err, req, res, next) {
@@ -13,6 +14,7 @@ function errorHandler(err, req, res, next) {
 }
 
 export default async ({ app }) => {
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 

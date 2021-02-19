@@ -30,14 +30,14 @@ class FfmpegService {
         console.error(err);
         return;
       }
+      console.debug(metadata);
       ffmpeg(input)
-        .size('10%')
-        .frames(15)
+        .size('640x?')
+        .aspect(metadata.streams[0].display_aspect_ratio)
         .noAudio()
         .format('matroska')
         .on('end', () => {
-          console.log('END');
-          //resolve();
+          console.debug('end of downaizing');
         })
         .pipe(output);
     });
